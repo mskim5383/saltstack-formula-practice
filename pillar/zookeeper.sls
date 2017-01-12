@@ -1,0 +1,49 @@
+# -*- coding: utf-8 -*-
+# vim: filetype=yaml
+
+# These are the supported Pillars with their defaults
+
+java_home: /usr/lib/jvm/jre
+zookeeper:
+  source_url: 'http://www.us.apache.org/dist/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz'
+  version: 3.4.9
+  # You can disable md5 checking if you know exactly what you are doing and set the following to an empty string.
+  source_md5: 3e8506075212c2d41030d874fcc9dcd2
+  prefix: /usr/lib
+  uid: 6030
+  hosts_function: network.get_hostname
+  hosts_target: 'roles:zookeeper'
+  targeting_method: grain # [compound, glob] also supported
+  config:
+    data_dir: /var/lib/zookeeper/data
+    port: 2181
+    jmx_port: 2183
+    snap_count: None
+    snap_retain_count: 3
+    purge_interval: None
+    max_client_cnxns: None
+    max_perm_size: 128
+    max_heap_size: 1024
+    initial_heap_size: 256
+    jvm_opts: None
+    log_level: INFO
+    quorum_port: 2888
+    election_port: 3888
+  restart_on_config: True
+
+# Use external service management instead init or systemd.
+# process_control_system: supervisor # You can use whatever you want not just Supervisord.
+# pcs_restart_command: 'supervisorctl restart zookeeper'
+
+# Configure Salt Mine function with parameters used in zookeeper:hosts_function
+#
+# mine_functions:
+#   network.ip_addrs:
+#     interface: eth0
+
+# You can override everything in config: locally with grains, additionally
+# there is support for the bind_address grain
+#
+# zookeeper:
+#   config:
+#     bind_address: 0.0.0.0
