@@ -11,7 +11,7 @@ zookeeper:
   source_md5: 3e8506075212c2d41030d874fcc9dcd2
   prefix: /usr/lib
   uid: 6030
-  hosts_function: network.get_hostname
+  hosts_function: network.ip_addrs
   hosts_target: 'roles:zookeeper'
   targeting_method: grain # [compound, glob] also supported
   config:
